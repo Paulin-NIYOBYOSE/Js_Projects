@@ -1,19 +1,32 @@
 const draggableList = document.getElementById('draggable-list');
 const dropArea = document.getElementById('drop-area');
+const draggableImages = document.getElementById('images')
+const draggingArea = document.querySelector('.dropdiv')
+//for list
+draggableList.addEventListener('dragstart', dragStartList);
+dropArea.addEventListener('dragover', dragOverList);
+dropArea.addEventListener('drop', dropList);
 
-draggableList.addEventListener('dragstart', dragStart);
-dropArea.addEventListener('dragover', dragOver);
-dropArea.addEventListener('drop', drop);
+//for images
+draggableImages.addEventListener('dragstart', dragStartImage);
+draggingArea.addEventListener('dragover', dragOverImage)
+draggingArea.addEventListener('drop', dropImage);
 
-function dragStart(event) {
+function dragStartList(event) {
     event.dataTransfer.setData('text/plain', event.target.innerText);
 }
-
-function dragOver(event) {
+function dragStartImage(event) {
+    event.dataTransfer.setData('text/plain', event.target.src);
+}
+function dragOverList(event) {
     event.preventDefault();
 }
 
-function drop(event) {
+function dragOverImage(event) {
+    event.preventDefault();
+}
+
+function dropList(event) {
     event.preventDefault();
     const data = event.dataTransfer.getData('text/plain');
     const newItem = document.createElement('li');
@@ -25,3 +38,15 @@ function drop(event) {
     }
     dropArea.appendChild(newItem);
 }
+function dropImage(event){
+    event.preventDefault();
+    const data = event.dataTransfer.getData('text/plain');
+    const newImage = document.createElement('img');
+    newImage.src = data;
+    const existingImage = draggingArea.querySelector('img')
+    if(existingImage){
+        existingImage.remove();
+    }
+    draggingArea.appendChild(newImage);
+}
+
