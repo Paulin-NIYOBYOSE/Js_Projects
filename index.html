@@ -1,42 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and drop</title>
-    <link rel="stylesheet" href="styles.css">
+<title>Inline Tabbed Component</title>
+<style>
+.tab {
+display: none;
+}
+.active-tab {
+display: block;
+}
+</style>
 </head>
 <body>
-    <h3>
-        Q1. Which language define the webpage structure
-    </h3>
-    <ul id="draggable-list">
-        <li draggable="true">Java</li>
-        <li draggable="true">HTML</li>
-        <li draggable="true">CSS</li>
-        <li draggable="true">Javascript</li>
-        <li draggable="true">Python</li>
-    </ul>
-    <div class="first-div" id="drop-area">
-        <!-- Droppable area -->
-    </div>
-
-    <h3>
-        Q2. Match the following functions with their names
-    </h3>
-    <div class="images">
-        <img src="images/first.png" alt="">
-        <img src="images/second.png" alt="">
-        <img src="images/second.png" alt="">
-    </div>
-    <div class="divs">
-        <div class="dropdiv"></div>
-        <div class="dropdiv"></div>
-        <div class="dropdiv"></div>
-    </div>
-    <script src="script.js"></script>
-
-
-    
+<div class="tabs">
+<button class="tab-button" data-tab="tab1">Tab 1</button>
+<button class="tab-button" data-tab="tab2">Tab 2</button>
+<button class="tab-button" data-tab="tab3">Tab 3</button>
+</div>
+<div class="tab-content">
+<div class="tab tab1 active-tab">Content of Tab 1</div>
+<div class="tab tab2">Content of Tab 2</div>
+<div class="tab tab3">Content of Tab 3</div>
+</div>
+<script>
+// Function to handle tab selection
+function showTab(tabName) {
+// Hide all tab contents
+const tabContents = document.querySelectorAll('.tab');
+tabContents.forEach(tab => tab.classList.remove('active-tab'));
+// Show the selected tab content
+const selectedTab = document.querySelector(`.${tabName}`);
+selectedTab.classList.add('active-tab');
+}
+// Attach event listeners to tab buttons
+const tabButtons = document.querySelectorAll('.tab-button');
+tabButtons.forEach(button => {
+button.addEventListener('click', () => {
+const tabName = button.getAttribute('data-tab');
+showTab(tabName);
+});
+});
+// Show the first tab on page load
+showTab('tab1');
+</script>
 </body>
 </html>
